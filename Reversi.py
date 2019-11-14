@@ -11,6 +11,8 @@ class Board:
     _BLACK = 1
     _WHITE = 2
     _EMPTY = 0
+    _vCoin = 100
+    _vAdjCoin = -90
 
     # Attention, la taille du plateau est donnÃ©e en paramÃ¨tre
     def __init__(self, boardsize=8):
@@ -219,10 +221,39 @@ class Board:
         #value += 100 * (self._board[0][0] - 1 - (self._board[0][0] % 2)) but issue if the value is zero
         ponderationCouleur = [0,-1,1]
 
-        value += 100*ponderationCouleur[self._board[0][0]]
-        value += 100 * ponderationCouleur[self._board[0][self._boardsize]]
-        value += 100 * ponderationCouleur[self._board[self._boardsize][0]]
-        value += 100 * ponderationCouleur[self._board[self._boardsize][self._boardsize]]
+        value += self._vCoin*ponderationCouleur[self._board[0][0]]
+        value += self._vCoin * ponderationCouleur[self._board[0][self._boardsize]]
+        value += self._vCoin * ponderationCouleur[self._board[self._boardsize][0]]
+        value += self._vCoin * ponderationCouleur[self._board[self._boardsize][self._boardsize]]
+
+        if self._board[0][0] != self._board[1][0]:
+            value += 100 * ponderationCouleur[self._board[1][0]]
+        if self._board[0][0] != self._board[0][1]:
+            value += 100 * ponderationCouleur[self._board[0][1]]
+        if self._board[0][0] != self._board[1][1]:
+            value += 100 * ponderationCouleur[self._board[1][1]]
+
+        if self._board[0][0] != self._board[1][self._boardsize]:
+            value += 100 * ponderationCouleur[self._board[1][self._boardsize]]
+        if self._board[0][0] != self._board[1][self._boardsize - 1]:
+            value += 100 * ponderationCouleur[self._board[1][self._boardsize - 1]]
+        if self._board[0][0] != self._board[0][self._boardsize-1]:
+            value += 100 * ponderationCouleur[self._board[0][self._boardsize-1]]
+
+        if self._board[0][0] != self._board[self._boardsize][1]:
+            value += 100 * ponderationCouleur[self._board[self._boardsize][1]]
+        if self._board[0][0] != self._board[self._boardsize - 1][0]:
+            value += 100 * ponderationCouleur[self._board[self._boardsize - 1][0]]
+        if self._board[0][0] != self._board[self._boardsize-1][1]:
+            value += 100 * ponderationCouleur[self._board[self._boardsize-1][1]]
+
+        if self._board[0][0] != self._board[self._boardsize - 1][self._boardsize]:
+            value += 100 * ponderationCouleur[self._board[self._boardsize - 1][self._boardsize]]
+        if self._board[0][0] != self._board[self._boardsize][self._boardsize - 1]:
+            value += 100 * ponderationCouleur[self._board[self._boardsize][self._boardsize - 1]]
+        if self._board[0][0] != self._board[self._boardsize-1][self._boardsize-1]:
+            value += 100 * ponderationCouleur[self._board[self._boardsize-1][self._boardsize-1]]
+
         if player is self._BLACK:
             value *= -1
         return value
