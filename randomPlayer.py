@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import time
-import Reversi
+import src.Reversi as Reversi
 from random import randint
-from playerInterface import *
+from src.playerInterface import *
 
 
 class randomPlayer(PlayerInterface):

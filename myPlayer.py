@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import time
-import Reversi
+import src.Reversi as Reversi
 import math
 import time
 from random import randint
-from playerInterface import *
+
+from src.playerInterface import *
 
 
 class myPlayer(PlayerInterface):
-    _depthMax = 3
+    _depthMax = 5
     currentDepth = 0
     runDepth = 0
 
@@ -26,15 +27,19 @@ class myPlayer(PlayerInterface):
             return (-1, -1)
         moves = [m for m in self._board.legal_moves()]
         move = moves[randint(0, len(moves) - 1)]
-        meilleur = -math.inf
-        self.runDepth = 3
-        for m in self._board.legal_moves():
-            self._board.push(m)
-            valeur = self._MinMax()
-            if valeur > meilleur:
-                meilleur = valeur
-                move = m
-            self._board.pop()
+        runBestmove = move
+        self.runDepth = 1
+        while self.runDepth <= self._depthMax:
+            meilleur = -math.inf
+            for m in self._board.legal_moves():
+                self._board.push(m)
+                valeur = self._MinMax()
+                if valeur > meilleur:
+                    meilleur = valeur
+                    runBestmove = m
+                self._board.pop()
+            move = runBestmove
+            self.runDepth+=1
         #move = moves[randint(0,len(moves)-1)]
         self._board.push(move)
         print("I am playing ", move)

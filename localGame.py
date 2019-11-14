@@ -1,6 +1,6 @@
-import Reversi
-import myPlayer
-import randomPlayer
+import src.Reversi as Reversi
+import src.myPlayer as myPlayer
+import src.randomPlayer as randomPlayer
 import time
 from io import StringIO
 import sys
