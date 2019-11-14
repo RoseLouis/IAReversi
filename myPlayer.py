@@ -89,7 +89,7 @@ class myPlayer(PlayerInterface):
         self.currentDepth += 1
         if self._board.at_least_one_legal_move((self._mycolor%2)+1) or self.currentDepth >= self.runDepth:
             self.currentDepth -= 1
-            return self._board.heuristique((self._mycolor%2)+1)
+            return self._board.heuristiqueCoin((self._mycolor%2)+1)
         for m in self._board.legal_moves():
             self._board.push(m)
             alpha = max(alpha, self._MinValue(alpha, beta))
@@ -104,7 +104,7 @@ class myPlayer(PlayerInterface):
         self.currentDepth += 1
         if self._board.at_least_one_legal_move(self._mycolor) or self.currentDepth > self.runDepth:
             self.currentDepth -= 1
-            return self._board.heuristique(self._mycolor)
+            return self._board.heuristiqueCoin(self._mycolor)
         for m in self._board.legal_moves():
             self._board.push(m)
             beta = min(beta, self._MaxValue(alpha, beta))

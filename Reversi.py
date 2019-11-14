@@ -210,6 +210,31 @@ class Board:
             return self._nbWHITE - self._nbBLACK
         return self._nbBLACK - self._nbWHITE
 
+    def heuristiqueCoin(self,player=None):
+        if player is None:
+            player = self._nextPlayer
+        value = self._nbWHITE - self._nbBLACK
+        #if  move == (0,0) or move == (self._boardsize,0) or move == (0, self._boardsize) or (self._boardsize,self._boardsize):
+        if self._board[0][0] == self._nbWHITE:
+            value += 100
+        if self._board[0][self._boardsize] == self._nbWHITE:
+            value += 100
+        if self._board[self._boardsize][0] == self._nbWHITE:
+            value += 100
+        if self._board[self._boardsize][self._boardsize] == self._nbWHITE:
+            value += 100
+        if self._board[0][0] == self._nbBLACK:
+            value -= 100
+        if self._board[0][self._boardsize] == self._nbBLACK:
+            value -= 100
+        if self._board[self._boardsize][0] == self._nbBLACK:
+            value -= 100
+        if self._board[self._boardsize][self._boardsize] == self._nbBLACK:
+            value -= 100
+        if player is self._BLACK:
+            value *= -1
+        return value
+
     def _piece2str(self, c):
         if c == self._WHITE:
             return 'O'
