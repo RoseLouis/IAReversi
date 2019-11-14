@@ -10,7 +10,7 @@ from src.playerInterface import *
 
 
 class myPlayer(PlayerInterface):
-    _depthMax = 5
+    _depthMax = 3
     currentDepth = 0
     runDepth = 0
     lastTime = 0
