@@ -15,6 +15,7 @@ class myPlayer(PlayerInterface):
     runDepth = 0
     lastTime = 0
     timeperturn = 5
+    # at maximum we can play 50 plays so in 5 minutes a play can take maximum 6 second
 
     def __init__(self):
         self._board = Reversi.Board(10)
