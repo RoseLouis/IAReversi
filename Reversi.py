@@ -215,22 +215,14 @@ class Board:
             player = self._nextPlayer
         value = self._nbWHITE - self._nbBLACK
         #if  move == (0,0) or move == (self._boardsize,0) or move == (0, self._boardsize) or (self._boardsize,self._boardsize):
-        if self._board[0][0] == self._WHITE:
-            value += 100
-        if self._board[0][self._boardsize] == self._WHITE:
-            value += 100
-        if self._board[self._boardsize][0] == self._WHITE:
-            value += 100
-        if self._board[self._boardsize][self._boardsize] == self._WHITE:
-            value += 100
-        if self._board[0][0] == self._BLACK:
-            value -= 100
-        if self._board[0][self._boardsize] == self._BLACK:
-            value -= 100
-        if self._board[self._boardsize][0] == self._BLACK:
-            value -= 100
-        if self._board[self._boardsize][self._boardsize] == self._BLACK:
-            value -= 100
+        # self._board[0][0] - 1 - (self._board[0][0]%2) is equel to 1 if the case is white and -1 if it's black
+        #value += 100 * (self._board[0][0] - 1 - (self._board[0][0] % 2)) but issue if the value is zero
+        ponderationCouleur = [0,-1,1]
+
+        value += 100*ponderationCouleur[self._board[0][0]]
+        value += 100 * ponderationCouleur[self._board[0][self._boardsize]]
+        value += 100 * ponderationCouleur[self._board[self._boardsize][0]]
+        value += 100 * ponderationCouleur[self._board[self._boardsize][self._boardsize]]
         if player is self._BLACK:
             value *= -1
         return value
