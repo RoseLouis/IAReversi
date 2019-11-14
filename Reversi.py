@@ -215,21 +215,21 @@ class Board:
             player = self._nextPlayer
         value = self._nbWHITE - self._nbBLACK
         #if  move == (0,0) or move == (self._boardsize,0) or move == (0, self._boardsize) or (self._boardsize,self._boardsize):
-        if self._board[0][0] == self._nbWHITE:
+        if self._board[0][0] == self._WHITE:
             value += 100
-        if self._board[0][self._boardsize] == self._nbWHITE:
+        if self._board[0][self._boardsize] == self._WHITE:
             value += 100
-        if self._board[self._boardsize][0] == self._nbWHITE:
+        if self._board[self._boardsize][0] == self._WHITE:
             value += 100
-        if self._board[self._boardsize][self._boardsize] == self._nbWHITE:
+        if self._board[self._boardsize][self._boardsize] == self._WHITE:
             value += 100
-        if self._board[0][0] == self._nbBLACK:
+        if self._board[0][0] == self._BLACK:
             value -= 100
-        if self._board[0][self._boardsize] == self._nbBLACK:
+        if self._board[0][self._boardsize] == self._BLACK:
             value -= 100
-        if self._board[self._boardsize][0] == self._nbBLACK:
+        if self._board[self._boardsize][0] == self._BLACK:
             value -= 100
-        if self._board[self._boardsize][self._boardsize] == self._nbBLACK:
+        if self._board[self._boardsize][self._boardsize] == self._BLACK:
             value -= 100
         if player is self._BLACK:
             value *= -1
