@@ -10,7 +10,7 @@ from src.playerInterface import *
 
 
 class myPlayer(PlayerInterface):
-    _depthMax = 3
+    _depthMax = 5
     currentDepth = 0
     runDepth = 0
     lastTime = 0
@@ -37,7 +37,8 @@ class myPlayer(PlayerInterface):
             self.lastTime = time.time()
             for m in self._board.legal_moves():
                 self._board.push(m)
-                valeur = self._MinMax()
+                # valeur = self._MinMax()
+                valeur = self._MaxValue(-(float("inf")),float("inf"));
                 if valeur > meilleur:
                     meilleur = valeur
                     runBestmove = m
@@ -98,11 +99,12 @@ class myPlayer(PlayerInterface):
         self.currentDepth -= 1
         return pire
 
+
     def _MaxValue(self, alpha, beta):
         self.currentDepth += 1
-        if not self._board.at_least_one_legal_move((self._mycolor%2)+1) or self.currentDepth >= self.runDepth:
+        if not self._board.at_least_one_legal_move(self._mycolor) or self.currentDepth >= self.runDepth:
             self.currentDepth -= 1
-            return self._board.heuristiqueCoin((self._mycolor%2)+1)
+            return self._board.heuristiqueCoin(self._mycolor)
         for m in self._board.legal_moves():
             self._board.push(m)
             alpha = max(alpha, self._MinValue(alpha, beta))
@@ -115,9 +117,9 @@ class myPlayer(PlayerInterface):
 
     def _MinValue(self, alpha, beta):
         self.currentDepth += 1
-        if not self._board.at_least_one_legal_move(self._mycolor) or self.currentDepth > self.runDepth:
+        if not self._board.at_least_one_legal_move((self._mycolor%2)+1) or self.currentDepth > self.runDepth:
             self.currentDepth -= 1
-            return self._board.heuristiqueCoin(self._mycolor)
+            return self._board.heuristiqueCoin((self._mycolor%2)+1)
         for m in self._board.legal_moves():
             self._board.push(m)
             beta = min(beta, self._MaxValue(alpha, beta))
